@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CS 2110 CIOS Tracker</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+				font-optical-sizing: auto;
+				box-sizing: border-box;
+			}
+			body {
+				max-width: 60ch;
+				margin: 0 auto;
+				padding: 2rem 1rem;
+				min-height: 100vh;
+				display: grid;
+				place-content: center stretch;
+				background: oklch(14.1% 0.005 285.823);
+				color: oklch(92% 0.004 286.32);
+			}
+			body > * {
+				width: 100%;
+			}
+			h1 {
+				text-wrap-style: balance;
+				text-align: center;
+				margin: 2rem 0 0;
+				color: oklch(90.5% 0.182 98.111);
+			}
+			.promotion {
+				text-align: center;
+				margin: 1rem 0;
+			}
+			a {
+				color: inherit;
+			}
+			.sections {
+				margin: 2rem 0;
+				gap: 0.5rem;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			h2 {
+				color: oklch(79.2% 0.209 151.711);
+			}
+			.section {
+				text-align: center;
+				flex-basis: 14ch;
+				padding: 0.5rem;
+				background: oklch(21% 0.006 285.885);
+				border: 2px solid oklch(27.4% 0.006 286.033);
+			}
+			.percent {
+				font-weight: bold;
+			}
+			.proportion {
+				color: oklch(70.5% 0.015 286.067);
+			}
+			hr {
+				border-color: oklch(70.5% 0.015 286.067);
+				width: 12rem;
+				max-width: 100%;
+				margin: 1rem auto;
+			}
+			.footnote {
+				text-align: center;
+				font-size: 0.875rem;
+				color: oklch(70.5% 0.015 286.067);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>CS 2110 CIOS Counter</h1>
+		<p class="promotion">DO YOUR CIOS <a href="https://b.gatech.edu/cios" rel="noopener noreferrer external">HERE</a></p>
+		<hr />
+		<div class="sections">%%classes%%</div>
+		<hr />
+		<p class="footnote">last updated at %%lastUpdated%%.</p>
+		<p class="footnote">
+			source code at
+			<a href="https://github.com/cubedhuang/cios" rel="noopener noreferrer external">github.com/cubedhuang/cios</a>.
+		</p>
+	</body>
+</html>

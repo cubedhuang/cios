@@ -1,0 +1,40 @@
+import parse from 'node-html-parser';
+
+export const titles = {
+	'Spring 2026 CS 2110 Lecture A': 'A',
+	'Spring 2026 CS 2110 Lecture B': 'B',
+	'Spring 2026 CS 2110 Lecture C': 'C',
+	'Spring 2026 CS 2110 Lecture D': 'D',
+	'Spring 2026 CS 2110 Lecture O1': 'O1',
+} as const;
+
+export type Completion = { responded: number; total: number };
+export type Completions = Record<string, Completion>;
+export type CompletionsResult = ({ completions: Record<string, Completion> } | { titlesMissing: string[] }) & { lastUpdated: number };
+
+export function getCompletions(html: string): CompletionsResult {
+	const root = parse(html);
+
+	const completions: Record<string, Completion | null> = Object.fromEntries(Object.keys(titles).map((title) => [title, null]));
+	console.log('completions', completions);
+
+	for (const course of root.querySelectorAll('.MyEvalCenterToBeOpened, .MyEvalCenterOpened')) {
+		const title = course.querySelector('.classTitle')?.text ?? '';
+		if (!Object.hasOwn(completions, title) || completions[title] !== null) continue;
+
+		const respondedNumbers = course.querySelectorAll('.spanRespondedNumbers');
+		completions[title] = {
+			responded: parseInt(respondedNumbers[0].text),
+			total: parseInt(respondedNumbers[2].text),
+		};
+	}
+
+	const titlesMissing = Object.entries(completions)
+		.filter(([_, v]) => v === null)
+		.map(([t]) => t);
+	if (titlesMissing.length) {
+		return { titlesMissing, lastUpdated: Date.now() };
+	}
+
+	return { completions: completions as Record<string, Completion>, lastUpdated: Date.now() };
+}
