@@ -8,7 +8,7 @@ async function putCache(cacheKey: string, data: unknown) {
 	const response = new Response(JSON.stringify(data), {
 		headers: {
 			'Content-Type': 'application/json',
-			'Cache-Control': 's-maxage=3600',
+			'Cache-Control': 's-maxage=300',
 		},
 	});
 	await caches.default.put(cacheKey, response);
@@ -34,8 +34,8 @@ export async function makeCachedRequest(
 	const kvCached = (await kv.get(key, 'json')) as Cached<CompletionsResult> | null;
 	const kvCachedGood = kvCached ? 'completions' in kvCached.data : false;
 
-	const oneHour = 60 * 60 * 1000;
-	const isStale = !kvCached || Date.now() - kvCached.lastUpdated > oneHour;
+	const fiveMinutes = 5 * 60 * 1000;
+	const isStale = !kvCached || Date.now() - kvCached.lastUpdated > fiveMinutes;
 
 	if (!isStale && kvCachedGood) {
 		ctx.waitUntil(putCache(cacheKey, kvCached.data));

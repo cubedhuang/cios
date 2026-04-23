@@ -1,8 +1,8 @@
 import { getCiosPage } from './secret';
-import { type Completions, getCompletions, titles } from './completions';
+import { getCompletions, titles } from './completions';
 import { makeCachedRequest } from './cache';
 
-// @ts-expect-error
+// @ts-expect-error insane typing hack
 import _template from './template.html';
 const template: string = _template;
 // @ts-expect-error
@@ -37,7 +37,7 @@ export default {
 				'%%lastUpdated%%',
 				new Date(result.lastUpdated).toLocaleString('en-US', {
 					timeZone: 'America/New_York',
-					timeZoneName: 'short', // Optional: displays EST/EDT
+					timeZoneName: 'short',
 				}),
 			),
 			{
