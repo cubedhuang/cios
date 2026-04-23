@@ -16,7 +16,6 @@ export function getCompletions(html: string): CompletionsResult {
 	const root = parse(html);
 
 	const completions: Record<string, Completion | null> = Object.fromEntries(Object.keys(titles).map((title) => [title, null]));
-	console.log('completions', completions);
 
 	for (const course of root.querySelectorAll('.MyEvalCenterToBeOpened, .MyEvalCenterOpened')) {
 		const title = course.querySelector('.classTitle')?.text ?? '';

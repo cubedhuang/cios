@@ -32,8 +32,6 @@ export default {
 				.replaceAll('%%responded%%', completion.responded.toString());
 		});
 
-		console.log(result);
-
 		return new Response(
 			template.replaceAll('%%classes%%', classes.join('\n')).replaceAll(
 				'%%lastUpdated%%',
