@@ -17,14 +17,16 @@ export function getCompletions(html: string): CompletionsResult {
 
 	const completions: Record<string, Completion | null> = Object.fromEntries(Object.keys(titles).map((title) => [title, null]));
 
-	for (const course of root.querySelectorAll('.MyEvalCenterToBeOpened, .MyEvalCenterOpened')) {
-		const title = course.querySelector('.classTitle')?.text ?? '';
+	for (const course of root.querySelectorAll('.lnkReportType')) {
+		const title = course.querySelector('.lblCourseInfo')?.text ?? '';
 		if (!Object.hasOwn(completions, title) || completions[title] !== null) continue;
 
-		const respondedNumbers = course.querySelectorAll('.spanRespondedNumbers');
+		const respondedNumbers = course.querySelector('.lblAttendees');
+		console.log({ title, respondedNumbers: respondedNumbers?.text });
+		const [responded, total] = /\((\d+)\/(\d+)\)/.exec(respondedNumbers?.text ?? '')?.slice(1) ?? ['0', '0'];
 		completions[title] = {
-			responded: parseInt(respondedNumbers[0].text),
-			total: parseInt(respondedNumbers[2].text),
+			responded: parseInt(responded),
+			total: parseInt(total),
 		};
 	}
 
